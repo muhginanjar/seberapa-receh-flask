@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<header class="mb-auto">
+    <div>
+      <!-- <h3 class="float-md-start mb-0">Halo <span id="nama"></span></h3> -->
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <!-- <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Contact</a> -->
+      </nav>
+    </div>
+</header>
+{% endblock %}
+
+{% block title %}
+HALAMAN DEPAN
+{% endblock %}
+
+{% block content %}
+<h1>Selamat datang di Permainan Tebak Kata!</h1>
+<p class="lead">Permainan ini, menyajikan 5 pertanyaan dengan 5 kategori jawaban, tapi Anda wajib jawab dengan jawaban <b>Receh</b></p>
+<p class="lead">
+    <a href="#" class="btn btn-lg btn-primary fw-bold" onclick="tampil()">Mulai ?</a>
+</p>
+{% endblock %}
+
+{% block script %}
+<script>
+    function tampil()
+    {
+        Swal.fire({
+        title: 'Sebelum mulai bermain,',
+        html: '<h4>masukkan nama Anda.</h4><input type="text" id="input-nama" class="swal2-input" placeholder="Nama">',
+        confirmButtonText: 'Simpan',
+        focusConfirm: false,
+        preConfirm: () => {
+            const login = Swal.getPopup().querySelector('#input-nama').value
+            if (!login) {
+            Swal.showValidationMessage('Mohon untuk mengisi nama terlebih dahulu!')
+            }
+            return {login: login}
+        }
+        }).then((result) => {
+            window.location = `/mulai?nama=${result.value.login}`
+            // Swal.fire(`Login: ${result.value.login}`.trim())
+        })
+    }
+</script>
+{% endblock %}
